@@ -14,12 +14,12 @@ public class UserController {
 
     @RequestMapping("getUser/{id}")
     public String GetUser(@PathVariable int id) {
-        return userService.Sel(id).toString();
+        return null;
     }
 
     @RequestMapping("getAllUsers")
     public String GetAllUsers() {
-        return userService.getAll().toString();
+        return null;
     }
 
 }

@@ -1,23 +1,19 @@
-package com.example.workflow.entity;
+package com.example.workflow.vo;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * @Author:wuxiongyang
  * @Date: 2019/10/13
  * @Time: 14:39
  */
-@Table(name = "user")
-public class User implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class UserVo {
     private Integer id;
-    @Column(name = "userName")
     private String userName;
-    @Column(name = "passWord")
     private String passWord;
-    @Column(name = "realName")
     private String realName;
 
     public Integer getId() {
@@ -50,15 +46,5 @@ public class User implements Serializable {
 
     public void setRealName(String realName) {
         this.realName = realName;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", userName='" + userName + '\'' +
-                ", passWord='" + passWord + '\'' +
-                ", realName='" + realName + '\'' +
-                '}';
     }
 }

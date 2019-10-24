@@ -13,6 +13,6 @@ public class ActivityController {
     ActivityService activityService;
     @RequestMapping("/testActivity")
     public void testActivity() {
-         activityService.testActivity();
+
     }
 }
