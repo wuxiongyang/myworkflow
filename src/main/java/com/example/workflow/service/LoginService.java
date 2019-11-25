@@ -10,4 +10,9 @@ public interface LoginService {
      * 登陆
      */
     JSONObject login(UserVo userVo);
+
+    /**
+     * 压力测试
+     */
+    JSONObject stress_test();
 }

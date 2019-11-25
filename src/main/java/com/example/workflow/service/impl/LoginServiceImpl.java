@@ -9,6 +9,7 @@ import com.example.workflow.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -41,6 +42,30 @@ public class LoginServiceImpl implements LoginService {
                 System.out.println(redisTemplate.opsForValue().get("loginUser"));
             }
         }
+        return result;
+    }
+
+    private static int count=0;
+    /**
+     * 压力测试
+     * @param
+     * @return
+     */
+
+    @Override
+    public JSONObject stress_test() {
+        User user=new User();
+        user.setId(count);
+        count++;
+        userMapper.insert(user);
+        try {
+           Integer.parseInt("dada");
+        }catch (Exception e){
+            throw new RuntimeException("运行错误");
+        }
+
+        JSONObject result=new JSONObject();
+        result.put("status","ok");
         return result;
     }
 }

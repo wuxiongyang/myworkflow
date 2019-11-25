@@ -1,5 +1,7 @@
 package com.example.workflow.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.example.workflow.service.LoginService;
 import com.example.workflow.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,14 +14,18 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private LoginService loginService;
+
     @RequestMapping("getUser/{id}")
     public String GetUser(@PathVariable int id) {
         return null;
     }
 
-    @RequestMapping("getAllUsers")
+    @RequestMapping("stress_test")
     public String GetAllUsers() {
-        return null;
+
+        return loginService.stress_test().toString();
     }
 
 }
