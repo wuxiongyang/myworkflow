@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<head>
+    <meta charset="UTF-8">
+    <title>主页面</title>
+    <link rel="stylesheet" type="text/css" href="/easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/easyui/themes/icon.css">
+    <script type="text/javascript" src="/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="/easyui/jquery.easyui.min.js"></script>
+    <script>
+        $(function () {
+
+            var tagboxValue=new Array(3);
+            $('#cc').combotree({
+                onCheck:function (node,checked) {
+                    if(checked){
+                        tagboxValue.push(node.text)
+                    }else {
+                        var index = tagboxValue.indexOf(node.text);
+                        tagboxValue.splice(index, 1);
+                    }
+                    console.log(node);
+                    $('#bb').combobox('setValues', []);
+                    $('#bb').combobox('setValues', tagboxValue);
+                }
+            });
+
+        })
+
+    </script>
+</head>
+<body style="background-color: #8D8D8D">
+  <div>
+      <input class="easyui-combotree" id="cc" data-options="url:'../DataController/getTreeData',method:'post',
+      multiple:true,checkbox:true" style="width:200px;">
+      <input class="easyui-tagbox" id="bb" value="" style="width:30%">
+  </div>
+
+</body>
+</html>

@@ -1,6 +1,7 @@
 package com.example.workflow.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.example.workflow.CommonClass.OutData;
 import com.example.workflow.entity.User;
 import com.example.workflow.mapper.UserMapper;
 import com.example.workflow.service.LoginService;
@@ -24,48 +25,24 @@ public class LoginServiceImpl implements LoginService {
      * 登陆
      */
     @Override
-    public JSONObject login(UserVo userVo) {
-        JSONObject result=new JSONObject();
+    public OutData login(UserVo userVo) {
+        OutData result=new OutData();
         User user=new User();
         user.setUserName(userVo.getUserName());
         int i = userMapper.selectCount(user);
         if(Constant.ZERO==i){
-            result.put(Constant.ERROR,"账户名不存在");
+            result.setCode(1);
+            result.setMsg("账户名不存在");
         }else {
             user.setPassWord(userVo.getPassWord());
             List<User> userList = userMapper.select(user);
             if(Constant.ZERO==userList.size()){
-                result.put(Constant.ERROR,"密码不正确");
-            }else {
-                result.put(Constant.OK,"验证通过");
-                redisTemplate.opsForValue().set("loginUser",userList.get(0).toString());
-                System.out.println(redisTemplate.opsForValue().get("loginUser"));
+                result.setCode(1);
+                result.setMsg("密码不正确");
             }
         }
         return result;
     }
 
-    private static int count=0;
-    /**
-     * 压力测试
-     * @param
-     * @return
-     */
 
-    @Override
-    public JSONObject stress_test() {
-        User user=new User();
-        user.setId(count);
-        count++;
-        userMapper.insert(user);
-        try {
-           Integer.parseInt("dada");
-        }catch (Exception e){
-            throw new RuntimeException("运行错误");
-        }
-
-        JSONObject result=new JSONObject();
-        result.put("status","ok");
-        return result;
-    }
 }

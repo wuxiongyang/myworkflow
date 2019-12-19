@@ -22,10 +22,5 @@ public class UserController {
         return null;
     }
 
-    @RequestMapping("stress_test")
-    public String GetAllUsers() {
-
-        return loginService.stress_test().toString();
-    }
 
 }
