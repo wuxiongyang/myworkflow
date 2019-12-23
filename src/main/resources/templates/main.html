@@ -9,18 +9,46 @@
     <script>
         $(function () {
 
-            var tagboxValue=new Array(3);
             $('#cc').combotree({
                 onCheck:function (node,checked) {
-                    if(checked){
-                        tagboxValue.push(node.text)
-                    }else {
-                        var index = tagboxValue.indexOf(node.text);
-                        tagboxValue.splice(index, 1);
+                    var t = $('#cc').combotree('tree');
+                    var nodes = t.tree('getChecked');
+                    var tagboxValue=new Array(100);
+                    for(var i=0;i<nodes.length;i++){
+                        if(nodes[i].id>10){
+                            var content='<span id='+nodes[i].id +'>'+nodes[i].text+'</span>';
+                            tagboxValue.push(content);
+                        }
                     }
-                    console.log(node);
+                    console.log(nodes);
+                    // if(checked){
+                    //     tagboxValue.push(node.text)
+                    // }else {
+                    //     var index = tagboxValue.indexOf(node.text);
+                    //     tagboxValue.splice(index, 1);
+                    // }
+
                     $('#bb').combobox('setValues', []);
                     $('#bb').combobox('setValues', tagboxValue);
+                }
+            });
+            $('#bb').tagbox({
+                onRemoveTag:function (value) {
+                    var nodeId=$(value).attr('id');
+                    var t = $('#cc').combotree('tree');
+                    var node = t.tree('find', nodeId);
+                    t.tree('uncheck', node.target);
+                }
+            })
+
+
+            $('#aa').combotree({
+                onCheck:function (node,checked) {
+                    var t = $('#aa').combotree('tree');
+                    var nodes = t.tree('getChecked');
+                    for(var i=0;i<nodes.length;i++){
+                            $('#'+nodes[i].id).show();
+                    }
                 }
             });
 
@@ -29,11 +57,31 @@
     </script>
 </head>
 <body style="background-color: #8D8D8D">
-  <div>
-      <input class="easyui-combotree" id="cc" data-options="url:'../DataController/getTreeData',method:'post',
+<div>
+    <input class="easyui-combotree" id="aa" data-options="url:'../DataController/getMainTreeData',method:'post',
       multiple:true,checkbox:true" style="width:200px;">
-      <input class="easyui-tagbox" id="bb" value="" style="width:30%">
+    <input class="easyui-tagbox" id="bb" value="" style="width:30%;float: left">
+</div>
+<div id="some">
+
+    <div style="float: left;display: none" id="food">
+        <input class="easyui-combotree" id="food1" data-options="url:'../DataController/getTreeData?code=food',method:'post',
+         multiple:true,checkbox:true" style="width:200px;">
+    </div>
+    <div style="float: left;display: none" id="hobby">
+        <input class="easyui-combotree" id="hobby1" data-options="url:'../DataController/getTreeData?code=hobby',method:'post',
+         multiple:true,checkbox:true" style="width:200px;">
+    </div>
+    <div style="float: left;display: none" id="lang">
+        <input class="easyui-combotree" id="lang1" data-options="url:'../DataController/getTreeData?code=lang',method:'post',
+         multiple:true,checkbox:true" style="width:200px;">
+    </div>
+</div>
+  <div>
+
+
   </div>
+
 
 </body>
 </html>
