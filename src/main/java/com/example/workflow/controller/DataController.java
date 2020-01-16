@@ -115,12 +115,11 @@ public class DataController {
         JSONObject object2=new JSONObject();
         object2.put("id","food");
         object2.put("text","食物");
-        ;
+
 
         JSONObject object3=new JSONObject();
         object3.put("id","hobby");
         object3.put("text","爱好");
-
 
         JSONArray rootchildren=new JSONArray();
         rootchildren.add(object3);
